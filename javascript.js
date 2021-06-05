@@ -1,4 +1,4 @@
-// JavaScript Document
+
 var p = {
 	0: "1km",
 	1: "2km",
@@ -128,7 +128,7 @@ var lastSpd1;
 var lastSpd2;
 
 $(document).ready(function () {
-	$("#time1").val("10000");         //TODO: INVESTIGATE!!!!!!!!!!!!!!!!!!
+	$("#time1").val("10000");
 
 	$("#slider_amirol_dist").slider({
 		range: "min",
@@ -230,7 +230,6 @@ function update(slider, val) {
 	);
 }
 
-// val is the index of value in p/t array
 function consumptionCalculator(dist, spd1, spd2) {
 	if (undefined === dist) {
 		dist = 0;
@@ -249,11 +248,15 @@ function consumptionCalculator(dist, spd1, spd2) {
 	var consumption2 = (cars[car] / 100) * t[dist] * (1 + 0.009 * s[spd2]);
   var time1 = t[dist] / s[spd1] * 60 * 60;
   var time2 = t[dist] / s[spd2] * 60 * 60;
-  var t1 = new Date(time1 * 1000).toISOString().substr(11, 8)
-  var t2 = new Date(time2 * 1000).toISOString().substr(11, 8)
+  var t1 = new Date(time1 * 1000).toISOString().substr(11, 8);
+  var t2 = new Date(time2 * 1000).toISOString().substr(11, 8);
 
+	var timeDiff = new Date(Math.abs(time2 - time1) * 1000).toISOString().substr(11, 8);
+	var consDiff = Math.abs(consumption1 - consumption2).toFixed(3) + "L";
 	$("#time1").val(t1);
 	$("#time2").val(t2);
-	$("#cons1").val(consumption1.toFixed(2) + "L");
-	$("#cons2").val(consumption2.toFixed(2) + "L");
+	$("#cons1").val(consumption1.toFixed(3) + "L");
+	$("#cons2").val(consumption2.toFixed(3) + "L");
+	$("#timeDiff").val(timeDiff);
+	$("#consDiff").val(consDiff);
 }
